@@ -67,7 +67,7 @@ file_length:
 # Naming rules can set warnings/errors for `min_length` and `max_length`. Additionally, they can
 # set excluded names and allowed symbols.
 type_name:
-  min_length: 4 # warning
+  min_length: 3 # warning
   max_length: # warning and error
     warning: 40
     error: 50
@@ -75,7 +75,7 @@ type_name:
   allowed_symbols: ["_"]
 identifier_name:
   min_length:
-    error: 4 # only error
+    error: 3 # warning
   excluded: # excluded via string array
     - id
     - URL
