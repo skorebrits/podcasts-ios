@@ -13,6 +13,6 @@ struct FeedApiModel: Decodable {
     let copyright: String
     let country: String
     let icon: String
-    let update: String
+    let updated: String
     let results: [PodcastApiModel]
 }

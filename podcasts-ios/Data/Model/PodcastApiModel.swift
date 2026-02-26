@@ -10,6 +10,6 @@ struct PodcastApiModel: Decodable {
     let id: String
     let kind: String
     let artworkUrl100: String
-    let genres: [String]
+    let genres: [GenreApiModel]
     let url: String
 }
