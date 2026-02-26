@@ -8,6 +8,7 @@
 struct PodcastApiModel: Decodable {
     let artistName: String
     let id: String
+    let name: String
     let kind: String
     let artworkUrl100: String
     let genres: [GenreApiModel]

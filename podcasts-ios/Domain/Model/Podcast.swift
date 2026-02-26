@@ -8,6 +8,7 @@
 struct Podcast {
     let artist: String
     let id: String
+    let name: String
     let kind: String
     let artworkUrl: String
     let url: String
