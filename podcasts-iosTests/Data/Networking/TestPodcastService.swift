@@ -97,17 +97,15 @@ struct TestPodcastService {
         // Arrange
         let request: URLRequest = .topPodcastsFeedRequest()
         let url = try #require(request.url)
-
         let httpResponse = HTTPURLResponse(
             url: url,
             statusCode: 200,
             httpVersion: nil,
             headerFields: nil
         )!
-
         let data = try #require(validFeedJSON.data(using: .utf8))
-
         let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: nil)
+        
         let sut = PodcastService(isUrlSession: urlSession, converter: .init())
 
         // Act
@@ -122,21 +120,37 @@ struct TestPodcastService {
         // Arrange
         let request: URLRequest = .topPodcastsFeedRequest()
         let url = try #require(request.url)
-
         let httpResponse = HTTPURLResponse(
             url: url,
             statusCode: 400,
             httpVersion: nil,
             headerFields: nil
         )!
-
         let data = Data()
-
         let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: nil)
+        
         let sut = PodcastService(isUrlSession: urlSession, converter: .init())
 
         // Assert
         await #expect(throws: PodCastServiceError.server(statusCode: 400)) {
+            // Act
+            _ =  try await sut.fectchTopPodCast()
+        }
+    }
+    
+    
+    @Test("test service throws error on url response")
+    func testFetchPodcastsServerErrorURLResponse() async throws {
+        // Arrange
+        let request: URLRequest = .topPodcastsFeedRequest()
+        let urlResponse = URLResponse()
+        let data = Data()
+        let urlSession = IsURLSessionStub(returnValue: (data, urlResponse), error: nil)
+        
+        let sut = PodcastService(isUrlSession: urlSession, converter: .init())
+        
+        // Assert
+        await #expect(throws: PodCastServiceError.server(statusCode: -1)) {
             // Act
             _ =  try await sut.fectchTopPodCast()
         }
@@ -147,17 +161,15 @@ struct TestPodcastService {
         // Arrange
         let request: URLRequest = .topPodcastsFeedRequest()
         let url = try #require(request.url)
-
         let httpResponse = HTTPURLResponse(
             url: url,
             statusCode: 200,
             httpVersion: nil,
             headerFields: nil
         )!
-
         let data = try #require(malformedFeedJSON.data(using: .utf8))
-
         let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: nil)
+        
         let sut = PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert
@@ -172,18 +184,16 @@ struct TestPodcastService {
         // Arrange
         let request: URLRequest = .topPodcastsFeedRequest()
         let url = try #require(request.url)
-
         let httpResponse = HTTPURLResponse(
             url: url,
             statusCode: 200,
             httpVersion: nil,
             headerFields: nil
         )!
-
         let data = Data()
         let error = URLError(.networkConnectionLost)
-
         let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: error)
+        
         let sut = PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert

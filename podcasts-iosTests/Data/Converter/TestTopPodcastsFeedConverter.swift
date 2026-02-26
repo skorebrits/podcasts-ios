@@ -120,6 +120,7 @@ struct TestTopPodcastsFeedConverter {
     func testValidJSON() async throws {
         // Arrange
         let data = try #require(validFeedJSON.data(using: .utf8))
+
         let sut = TopPodcastsFeedConverter()
         
         // Act
@@ -134,6 +135,7 @@ struct TestTopPodcastsFeedConverter {
     func testEmptyFeed() async throws {
         // Arrange
         let data = try #require(emptyResultsFeedJSON.data(using: .utf8))
+
         let sut = TopPodcastsFeedConverter()
         
         // Act
@@ -147,6 +149,7 @@ struct TestTopPodcastsFeedConverter {
     func testMalformedFeed () async throws {
         // Arrange
         let data =  try #require(malformedFeedJSON.data(using: .utf8))
+
         let sut = TopPodcastsFeedConverter()
         
         // Assert
