@@ -132,7 +132,7 @@ struct TestPodcastService {
         let sut = PodcastService(isUrlSession: urlSession, converter: .init())
 
         // Assert
-        await #expect(throws: PodCastServiceError.server(statusCode: 400)) {
+        await #expect(throws: PodCastError.server(statusCode: 400)) {
             // Act
             _ =  try await sut.fectchTopPodCast()
         }
@@ -149,7 +149,7 @@ struct TestPodcastService {
         let sut = PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert
-        await #expect(throws: PodCastServiceError.server(statusCode: -1)) {
+        await #expect(throws: PodCastError.server(statusCode: -1)) {
             // Act
             _ =  try await sut.fectchTopPodCast()
         }
@@ -172,7 +172,7 @@ struct TestPodcastService {
         let sut = PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert
-        await #expect(throws: PodCastServiceError.decodingError) {
+        await #expect(throws: PodCastError.decodingError) {
             // Act
             _ =  try await sut.fectchTopPodCast()
         }
@@ -196,7 +196,7 @@ struct TestPodcastService {
         let sut = PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert
-        await #expect(throws: PodCastServiceError.network(error: error)) {
+        await #expect(throws: PodCastError.network(error: error)) {
             // Act
             _ =  try await sut.fectchTopPodCast()
         }
