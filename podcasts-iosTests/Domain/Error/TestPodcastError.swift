@@ -78,4 +78,27 @@ struct TestPodcastError {
         #expect(sutB == nil)
         #expect(sutC == PodCastError.server(statusCode: 400))
     }
+    
+    @Test("test PodcastError == operator correctly compares errors")
+    func testEquatable() {
+        // server equality
+        #expect(PodCastError.server(statusCode: 200) == PodCastError.server(statusCode: 200))
+        #expect(PodCastError.server(statusCode: 200) != PodCastError.server(statusCode: 404))
+
+        // decodingError equality
+        #expect(PodCastError.decodingError == PodCastError.decodingError)
+
+        // network equality - same error
+        let urlError = URLError(.badServerResponse)
+        #expect(PodCastError.network(error: urlError) == PodCastError.network(error: urlError))
+
+        // network inequality - different errors
+        let otherUrlError = URLError(.notConnectedToInternet)
+        #expect(PodCastError.network(error: urlError) != PodCastError.network(error: otherUrlError))
+
+        // default - mixed cases
+        #expect(PodCastError.decodingError != PodCastError.server(statusCode: 200))
+        #expect(PodCastError.network(error: urlError) != PodCastError.server(statusCode: 200))
+        #expect(PodCastError.server(statusCode: 200) != PodCastError.decodingError)
+    }
 }
