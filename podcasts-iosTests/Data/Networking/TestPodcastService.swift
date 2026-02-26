@@ -142,7 +142,6 @@ struct TestPodcastService {
     @Test("test service throws error on url response")
     func testFetchPodcastsServerErrorURLResponse() async throws {
         // Arrange
-        let request: URLRequest = .topPodcastsFeedRequest()
         let urlResponse = URLResponse()
         let data = Data()
         let urlSession = IsURLSessionStub(returnValue: (data, urlResponse), error: nil)
