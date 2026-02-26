@@ -7,7 +7,7 @@
 
 enum PodcastsViewState: Equatable {
     case loading
-    case error(PodCastError)
+    case error(ErrorViewData)
     case loaded(Feed)
 
     static func == (lhs: PodcastsViewState, rhs: PodcastsViewState) -> Bool {
@@ -15,10 +15,10 @@ enum PodcastsViewState: Equatable {
         case (.loading, .loading):
             return true
 
-        case let (.error(lhsError), .error(rhsError)):
-            return lhsError == rhsError
+        case (.error(_), .error(_)):
+            return true
 
-        case let (.loaded(lhsFeed), .loaded(rhsFeed)):
+        case (.loaded(_), .loaded(_)):
             return true
 
         default:

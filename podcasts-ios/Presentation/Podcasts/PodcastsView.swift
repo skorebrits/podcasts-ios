@@ -14,9 +14,13 @@ struct PodcastsView: View {
         Group {
             switch viewModel.state {
             case .loading:
-                Text("Loading....")
-            case .error(let error):
-                Text("Error: \(error.localizedDescription)")
+                LoadingView()
+            case .error(let errorViewData):
+                ErrorView(viewData: errorViewData) {
+                    Task {
+                        await viewModel.load()
+                    }
+                }
             case .loaded(let feed):
                 Text("Loaded:\(feed.title)")
             }

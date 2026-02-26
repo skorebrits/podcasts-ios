@@ -23,7 +23,9 @@ class PodcastsViewModel {
             let feed = try await self.repository.fetchPodcastsFeed()
             self.state = .loaded(feed)
         } catch {
-            self.state = .error(PodCastError(error: error))
+            let podcastError = PodCastError(error: error)
+            let errorViewData = PodcastsPresenter.viewDataFrom(error: podcastError)
+            self.state = .error(errorViewData)
         }
     }
 }
