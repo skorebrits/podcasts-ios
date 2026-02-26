@@ -9,7 +9,7 @@ import Foundation
 
 extension URLRequest {
 
-    static func topFeedRequest() -> URLRequest {
+    static func topPodcastsFeedRequest() -> URLRequest {
         // swiftlint:disable:next force_unwrapping
         URLRequest(url:
                     URL(string: "https://rss.marketingtools.apple.com/api/v2/nl/podcasts/top/25/podcasts.json")!
