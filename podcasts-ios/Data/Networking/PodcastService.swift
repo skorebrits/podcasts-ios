@@ -7,7 +7,7 @@
 
 import Foundation
 
-actor PodcastService {
+struct PodcastService {
 
     private let isUrlSession: IsURLSession
     private let converter: TopPodcastsFeedConverter

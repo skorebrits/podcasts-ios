@@ -8,8 +8,7 @@
 import SwiftUI
 
 @Observable
-@MainActor
-class PodcastsViewModel {
+final class PodcastsViewModel {
     var state: PodcastsViewState = .loading
 
     private let repository: PodcastsRepository
