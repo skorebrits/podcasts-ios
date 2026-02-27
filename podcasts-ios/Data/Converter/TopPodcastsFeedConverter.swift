@@ -15,7 +15,7 @@ struct TopPodcastsFeedConverter {
 
     private let jsonDecoder: JSONDecoder
 
-    nonisolated init(jsonDecoder: JSONDecoder = .init()) {
+    init(jsonDecoder: JSONDecoder = .init()) {
         self.jsonDecoder = jsonDecoder
     }
 

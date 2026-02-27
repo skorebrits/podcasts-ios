@@ -25,9 +25,9 @@ struct TestPodcastsRepository {
         )!
         let data = try #require(FeedFixtures.validFeedJSON.data(using: .utf8))
         let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: nil)
-        let service = PodcastService(isUrlSession: urlSession)
+        let service = await PodcastService(isUrlSession: urlSession)
         
-        let sut = PodcastsRepository(podcastService: service)
+        let sut = await PodcastsRepository(podcastService: service)
         
         // Act
         let feed = try await sut.fetchPodcastsFeed()

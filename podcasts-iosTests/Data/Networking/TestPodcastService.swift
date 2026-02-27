@@ -26,7 +26,7 @@ struct TestPodcastService {
         let data = try #require(FeedFixtures.validFeedJSON.data(using: .utf8))
         let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: nil)
         
-        let sut = PodcastService(isUrlSession: urlSession, converter: .init())
+        let sut = await PodcastService(isUrlSession: urlSession, converter: .init())
 
         // Act
         let response = try await sut.fectchTopPodCast()
@@ -49,7 +49,7 @@ struct TestPodcastService {
         let data = Data()
         let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: nil)
         
-        let sut = PodcastService(isUrlSession: urlSession, converter: .init())
+        let sut = await PodcastService(isUrlSession: urlSession, converter: .init())
 
         // Assert
         await #expect(throws: PodCastError.server(statusCode: 400)) {
@@ -66,7 +66,7 @@ struct TestPodcastService {
         let data = Data()
         let urlSession = IsURLSessionStub(returnValue: (data, urlResponse), error: nil)
         
-        let sut = PodcastService(isUrlSession: urlSession, converter: .init())
+        let sut = await PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert
         await #expect(throws: PodCastError.server(statusCode: -1)) {
@@ -89,7 +89,7 @@ struct TestPodcastService {
         let data = try #require(FeedFixtures.malformedFeedJSON.data(using: .utf8))
         let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: nil)
         
-        let sut = PodcastService(isUrlSession: urlSession, converter: .init())
+        let sut = await PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert
         await #expect(throws: PodCastError.decodingError) {
@@ -113,7 +113,7 @@ struct TestPodcastService {
         let error = URLError(.networkConnectionLost)
         let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: error)
         
-        let sut = PodcastService(isUrlSession: urlSession, converter: .init())
+        let sut = await PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert
         await #expect(throws: PodCastError.network(error: error)) {
