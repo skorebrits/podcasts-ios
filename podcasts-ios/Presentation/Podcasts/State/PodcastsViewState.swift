@@ -6,9 +6,9 @@
 //
 
 enum PodcastsViewState: Equatable {
-    case loading
+    case loading(LoadingViewData)
     case error(ErrorViewData)
-    case loaded(Feed)
+    case loaded(PodcastsFeedViewData)
 
     static func == (lhs: PodcastsViewState, rhs: PodcastsViewState) -> Bool {
         switch (lhs, rhs) {

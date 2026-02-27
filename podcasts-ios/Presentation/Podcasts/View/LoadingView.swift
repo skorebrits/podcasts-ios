@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct LoadingView: View {
+    var viewData: LoadingViewData
 
     var body: some View {
-        //TODO: replace hardcoded label with viewData
-        ProgressView("Loading...")
+        ProgressView(viewData.label)
             .tint(.blue)
             .progressViewStyle(.circular)
     }
 }
 
 #Preview {
-    LoadingView()
+    LoadingView(viewData: LoadingViewData(label: "loading"))
 }

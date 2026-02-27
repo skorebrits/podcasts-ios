@@ -9,7 +9,7 @@ import SwiftUI
 
 @Observable
 final class PodcastsViewModel {
-    var state: PodcastsViewState = .loading
+    var state: PodcastsViewState = .loading(PodcastsPresenter.loadingViewData())
 
     private let repository: PodcastsRepository
 
@@ -20,7 +20,8 @@ final class PodcastsViewModel {
     func load() async {
         do {
             let feed = try await self.repository.fetchPodcastsFeed()
-            self.state = .loaded(feed)
+            let feedViewData = PodcastsPresenter.viewDataFrom(feed: feed)
+            self.state = .loaded(feedViewData)
         } catch {
             let podcastError = PodCastError(error: error)
             let errorViewData = PodcastsPresenter.viewDataFrom(error: podcastError)

@@ -13,16 +13,22 @@ struct PodcastsView: View {
     var body: some View {
         Group {
             switch viewModel.state {
-            case .loading:
-                LoadingView()
+            case .loading(let loadingViewData):
+                LoadingView(viewData: loadingViewData)
             case .error(let errorViewData):
                 ErrorView(viewData: errorViewData) {
                     Task {
                         await viewModel.load()
                     }
                 }
-            case .loaded(let feed):
-                Text("Loaded:\(feed.title)")
+            case .loaded(let feedViewData):
+                VStack {
+                    Text(feedViewData.title).font(.largeTitle)
+
+                    List(feedViewData.cells) { cell in
+                        PodcastsCellView(viewData: cell)
+                    }
+                }
             }
         }
         .task {
