@@ -11,18 +11,18 @@ enum PodcastsViewState: Equatable {
     case loaded(PodcastsFeedViewData)
 
     static func == (lhs: PodcastsViewState, rhs: PodcastsViewState) -> Bool {
-        switch (lhs, rhs) {
+        return switch (lhs, rhs) {
         case (.loading, .loading):
-            return true
+            true
 
-        case (.error(_), .error(_)):
-            return true
+        case (.error, .error):
+            true
 
-        case (.loaded(_), .loaded(_)):
-            return true
+        case (.loaded, .loaded):
+            true
 
         default:
-            return false
+            false
         }
     }
 }

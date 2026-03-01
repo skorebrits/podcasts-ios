@@ -44,6 +44,9 @@
           }
         }
       }
+    },
+    "loading.title" : {
+      "extractionState" : "manual"
     }
   },
   "version" : "1.1"

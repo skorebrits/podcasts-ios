@@ -9,23 +9,27 @@ import SwiftUI
 
 @Observable
 final class PodcastsViewModel {
-    var state: PodcastsViewState = .loading(PodcastsPresenter.loadingViewData())
 
+    var state: PodcastsViewState
+
+    private let loadingState: PodcastsViewState = .loading(.init())
     private let repository: PodcastsRepository
 
     init(repository: PodcastsRepository = .init(podcastService: PodcastService())) {
         self.repository = repository
+        self.state = loadingState
     }
 
     func load() async {
         do {
+            state = loadingState
             let feed = try await self.repository.fetchPodcastsFeed()
-            let feedViewData = PodcastsPresenter.viewDataFrom(feed: feed)
-            self.state = .loaded(feedViewData)
+            let feedViewData = PodcastsPresenter.present(feed)
+            state = .loaded(feedViewData)
         } catch {
             let podcastError = PodCastError(error: error)
-            let errorViewData = PodcastsPresenter.viewDataFrom(error: podcastError)
-            self.state = .error(errorViewData)
+            let errorViewData = ErrorPresenter.present(podcastError)
+            state = .error(errorViewData)
         }
     }
 }
