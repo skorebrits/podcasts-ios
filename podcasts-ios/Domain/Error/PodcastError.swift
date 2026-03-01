@@ -16,7 +16,7 @@ enum PodCastError: Error, Equatable {
         switch error {
         case let podcastError as PodCastError:
             self = podcastError
-            
+
         case let urlError as URLError:
             self = .init(urlError: urlError)
 

@@ -7,18 +7,12 @@
 
 import Foundation
 
-struct PodcastsPresenter {
-    static func viewDataFrom(error: PodCastError) -> ErrorViewData {
-        .init(
-            errorLabel: "Error: \(error.localizedDescription)",
-            errorRetryButton: "Try again"
-        )
-    }
+struct PodcastsPresenter: Presenter {
 
-    static func viewDataFrom(feed: Feed) -> PodcastsFeedViewData {
+    static func present(_ data: Feed) -> PodcastsFeedViewData {
         .init(
-            title: feed.title,
-            cells: feed.podcasts.map {
+            title: data.title,
+            cells: data.podcasts.map {
                 PodcastsCellViewData(
                     id: $0.id,
                     label: $0.name,
@@ -27,9 +21,5 @@ struct PodcastsPresenter {
                 )
             }
         )
-    }
-
-    static func loadingViewData() -> LoadingViewData {
-        .init(label: "Loading...")
     }
 }
