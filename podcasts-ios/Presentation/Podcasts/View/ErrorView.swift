@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ErrorView: View {
+
     var viewData: ErrorViewData
     var onRegry: () -> Void
 
     var body: some View {
         VStack(spacing: 24) {
-            Text(viewData.errorLabel)
+            Text(viewData.errorTItle)
             Button(viewData.errorRetryButton) {
                 onRegry()
             }
@@ -24,7 +25,7 @@ struct ErrorView: View {
 #Preview {
     ErrorView(
         viewData: ErrorViewData(
-            errorLabel: "Error",
+            errorTItle: "Error",
             errorRetryButton: "Retry"
         ),
         onRegry: {

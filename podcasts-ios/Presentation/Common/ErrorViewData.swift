@@ -5,7 +5,7 @@
 //  Created by Sander Korebrits on 26/02/2026.
 //
 
-struct ErrorViewData {
-    var errorLabel: String
+struct ErrorViewData: ViewData {
+    var errorTItle: String
     var errorRetryButton: String
 }

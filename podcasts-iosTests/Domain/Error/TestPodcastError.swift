@@ -23,6 +23,7 @@ struct TestPodcastError {
         let urlErrorConnectionLost = URLError(.networkConnectionLost)
         let urlErrorTimeOut = URLError(.timedOut)
         let urlErrorOtherURLError = URLError(.unknown)
+        let urlPodcastError = PodCastError.offline
 
         // Act
         let sutNotConnected = PodCastError(error: urlErrorNotConnected)
@@ -30,6 +31,7 @@ struct TestPodcastError {
         let sutTimeOut = PodCastError(error: urlErrorTimeOut)
         let sutOtherURLError = PodCastError(error: urlErrorOtherURLError)
         let sutTest = PodCastError(error: TestError.test)
+        let sutPodcastError = PodCastError(error: urlPodcastError)
         
         // Assert
         #expect(sutNotConnected == PodCastError.offline)
@@ -37,5 +39,6 @@ struct TestPodcastError {
         #expect(sutTimeOut == PodCastError.timeOut)
         #expect(sutOtherURLError == PodCastError.server)
         #expect(sutTest == PodCastError.server)
+        #expect(sutPodcastError == PodCastError.offline)
     }
 }
