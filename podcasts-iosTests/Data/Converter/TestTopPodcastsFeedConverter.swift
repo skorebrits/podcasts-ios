@@ -13,45 +13,45 @@ import Foundation
 struct TestTopPodcastsFeedConverter {
     
     @Test("test converter returns response when converting data")
-    func testValidJSON() async throws {
+    func testValidJSON() throws {
         // Arrange
         let data = try #require(FeedFixtures.validFeedJSON.data(using: .utf8))
 
         let sut = TopPodcastsFeedConverter()
         
         // Act
-        let response = try await sut.convert(data: data)
+        let response = try sut.convert(data: data)
         
         // Assert
-        await #expect(response.feed.title == "Topprogramma's")
-        await #expect(response.feed.results.count == 3)
+        #expect(response.feed.title == "Topprogramma's")
+        #expect(response.feed.results.count == 3)
     }
     
     @Test("test converter returns response when converting empy feed")
-    func testEmptyFeed() async throws {
+    func testEmptyFeed() throws {
         // Arrange
         let data = try #require(FeedFixtures.emptyResultsFeedJSON.data(using: .utf8))
 
         let sut = TopPodcastsFeedConverter()
         
         // Act
-        let response = try await sut.convert(data: data)
+        let response = try sut.convert(data: data)
         
         // Assert
-        await #expect(response.feed.results.isEmpty)
+        #expect(response.feed.results.isEmpty)
     }
     
     @Test("test converter throws when converting malformed feed")
-    func testMalformedFeed () async throws {
+    func testMalformedFeed () throws {
         // Arrange
         let data =  try #require(FeedFixtures.malformedFeedJSON.data(using: .utf8))
 
         let sut = TopPodcastsFeedConverter()
         
         // Assert
-        await #expect(throws: (any Error).self) {
+        #expect(throws: (any Error).self) {
             // Act
-            _ = try await sut.convert(data: data)
+            _ = try sut.convert(data: data)
         }
     }
 }

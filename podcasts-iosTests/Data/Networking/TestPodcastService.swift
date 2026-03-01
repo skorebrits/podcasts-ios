@@ -52,7 +52,7 @@ struct TestPodcastService {
         let sut = await PodcastService(isUrlSession: urlSession, converter: .init())
 
         // Assert
-        await #expect(throws: PodCastError.server(statusCode: 400)) {
+        await #expect(throws: PodCastError.server) {
             // Act
             _ =  try await sut.fectchTopPodCast()
         }
@@ -69,7 +69,7 @@ struct TestPodcastService {
         let sut = await PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert
-        await #expect(throws: PodCastError.server(statusCode: -1)) {
+        await #expect(throws: PodCastError.server) {
             // Act
             _ =  try await sut.fectchTopPodCast()
         }
@@ -92,14 +92,14 @@ struct TestPodcastService {
         let sut = await PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert
-        await #expect(throws: PodCastError.decodingError) {
+        await #expect(throws: PodCastError.server) {
             // Act
             _ =  try await sut.fectchTopPodCast()
         }
     }
     
-    @Test("test service throws error on network")
-    func testFetchPodcastsNetworkError() async throws {
+    @Test("test service throws offline")
+    func testFetchPodcastsOfflineError() async throws {
         // Arrange
         let request: URLRequest = .topPodcastsFeedRequest()
         let url = try #require(request.url)
@@ -110,13 +110,37 @@ struct TestPodcastService {
             headerFields: nil
         )!
         let data = Data()
-        let error = URLError(.networkConnectionLost)
+        let error = URLError(.notConnectedToInternet)
         let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: error)
         
         let sut = await PodcastService(isUrlSession: urlSession, converter: .init())
         
         // Assert
-        await #expect(throws: PodCastError.network(error: error)) {
+        await #expect(throws: PodCastError.offline) {
+            // Act
+            _ =  try await sut.fectchTopPodCast()
+        }
+    }
+    
+    @Test("test service throws timeout")
+    func testFetchPodcastsTimeOutError() async throws {
+        // Arrange
+        let request: URLRequest = .topPodcastsFeedRequest()
+        let url = try #require(request.url)
+        let httpResponse = HTTPURLResponse(
+            url: url,
+            statusCode: 200,
+            httpVersion: nil,
+            headerFields: nil
+        )!
+        let data = Data()
+        let error = URLError(.timedOut)
+        let urlSession = IsURLSessionStub(returnValue: (data, httpResponse), error: error)
+        
+        let sut = await PodcastService(isUrlSession: urlSession, converter: .init())
+        
+        // Assert
+        await #expect(throws: PodCastError.timeOut) {
             // Act
             _ =  try await sut.fectchTopPodCast()
         }
