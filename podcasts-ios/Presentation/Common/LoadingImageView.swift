@@ -13,12 +13,13 @@ struct LoadingImageView: View {
         AsyncImage(url: URL(string: url)) { phase in
             switch phase {
             case .empty:
-                ProgressView().tint(.blue)
+                ProgressView()
+                    .tint(.blue)
             case .success(let image):
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-            case .failure(_):
+            case .failure:
                 Rectangle()
                     .fill(Color.gray)
             @unknown default:

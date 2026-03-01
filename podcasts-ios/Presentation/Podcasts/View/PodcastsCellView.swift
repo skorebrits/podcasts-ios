@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PodcastsCellView: View {
+
     var viewData: PodcastsCellViewData
 
     var body: some View {

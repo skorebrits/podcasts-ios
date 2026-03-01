@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoadingView: View {
+
     var viewData: LoadingViewData
 
     var body: some View {
@@ -18,5 +19,5 @@ struct LoadingView: View {
 }
 
 #Preview {
-    LoadingView(viewData: LoadingViewData(label: "loading"))
+    LoadingView(viewData: .init())
 }

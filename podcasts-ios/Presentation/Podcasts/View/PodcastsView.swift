@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PodcastsView: View {
+
     @State private var viewModel = PodcastsViewModel()
 
     var body: some View {
@@ -23,7 +24,8 @@ struct PodcastsView: View {
                 }
             case .loaded(let feedViewData):
                 VStack {
-                    Text(feedViewData.title).font(.largeTitle)
+                    Text(feedViewData.title)
+                        .font(.largeTitle)
 
                     List(feedViewData.cells) { cell in
                         PodcastsCellView(viewData: cell)

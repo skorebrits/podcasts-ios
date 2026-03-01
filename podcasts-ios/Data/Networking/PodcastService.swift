@@ -20,10 +20,8 @@ struct PodcastService {
     func fectchTopPodCast() async throws -> TopPodcastsResponse {
         do {
             let (data, response) = try await isUrlSession.data(for: .topPodcastsFeedRequest(), delegate: nil)
-            if let error = PodCastError(response: response) {
-                throw error
-            }
-            return try await converter.convert(data: data)
+            try response.validateStatusCode()
+            return try converter.convert(data: data)
         } catch let error {
             throw PodCastError(error: error)
         }

@@ -7,10 +7,6 @@
 
 import Foundation
 
-enum ConverterError: Error {
-    case converterError(error: Error)
-}
-
 struct TopPodcastsFeedConverter {
 
     private let jsonDecoder: JSONDecoder
@@ -19,11 +15,7 @@ struct TopPodcastsFeedConverter {
         self.jsonDecoder = jsonDecoder
     }
 
-    func convert(data: Data) async throws -> TopPodcastsResponse {
-        do {
-            return try jsonDecoder.decode(TopPodcastsResponse.self, from: data)
-        } catch let error {
-            throw ConverterError.converterError(error: error)
-        }
+    func convert(data: Data) throws -> TopPodcastsResponse {
+        try jsonDecoder.decode(TopPodcastsResponse.self, from: data)
     }
 }

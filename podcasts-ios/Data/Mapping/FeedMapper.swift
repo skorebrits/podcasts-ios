@@ -6,7 +6,8 @@
 //
 
 enum FeedMapper {
-    static nonisolated func map(_ feed: FeedApiModel) -> Feed {
+
+    static func map(_ feed: FeedApiModel) -> Feed {
         Feed(
             title: feed.title,
             podcasts: feed.results.map {
